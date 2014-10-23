@@ -1,8 +1,53 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>Mashup</title>
-  </head>
-  <body>
-  </body>
+	<head>
+		<title>Mashup</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+		<script src="http://underscorejs.org/underscore.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+	</head>
+
+	<style>
+		body{
+			font-family: 'Roboto', sans-serif;
+		}
+		.hash{
+
+		}
+	</style>
+
+	<body>
+		
+		<p>Click anywhere to see recent Tumblr hashtags from Taylor Swift</p>
+		<div class="hastags"></div>
+
+	<script>
+
+	$('body').on('click', function(){$.ajax({
+        url: 'http://api.tumblr.com/v2/blog/taylorswift.tumblr.com/posts?api_key=lFtJkzttWGO9Gz1xH6isQNVPidE4xIVV5XqPqzMfTzeg6vfUMw',
+        dataType: 'jsonp',
+        success: function(result){
+          //console.log(result.response);
+          	_.each(result.response.posts, function(post){
+          		_.each(post.tags, function(tag){
+          			console.log(tag);
+          			$('.hastags').append('<div class="hash">#' + tag + '</div>');
+          		});
+          	});
+        }
+        
+      });
+
+	});	
+
+		//TUMBLR:
+		//http://api.tumblr.com/v2/blog/taylorswift.tumblr.com/posts?api_key=lFtJkzttWGO9Gz1xH6isQNVPidE4xIVV5XqPqzMfTzeg6vfUMw
+		//http://stackoverflow.com/questions/14220321/how-to-return-the-response-from-an-ajax-call?rq=1
+
+		//INSTA:
+		//https://api.instagram.com/v1/media/popular?client_id=8ef438f473314242ac5b78c14423b66d
+		//https://api.instagram.com/v1/users/3/media/recent/?client_id=8ef438f473314242ac5b78c14423b66d
+	</script>
+
+	</body>
 </html>
+
